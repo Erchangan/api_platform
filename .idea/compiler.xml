@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="xiapi-gateway" />
+        <module name="xiapi-client-sdk" />
+        <module name="xiapi-backend" />
+        <module name="xiapi-common" />
+        <module name="xiapi-interface" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xiapi-backend" target="1.8" />
+      <module name="xiapi-client-sdk" target="1.8" />
+      <module name="xiapi-common" target="1.8" />
+      <module name="xiapi-gateway" target="1.8" />
+      <module name="xiapi-interface" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="xiapi-backend" options="-parameters" />
+      <module name="xiapi-client-sdk" options="-parameters" />
+      <module name="xiapi-common" options="-parameters" />
+      <module name="xiapi-gateway" options="-parameters" />
+      <module name="xiapi-interface" options="-parameters" />
+    </option>
+  </component>
+</project>

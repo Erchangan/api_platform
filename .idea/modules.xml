@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/API-VUE.iml" filepath="$PROJECT_DIR$/.idea/API-VUE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiapi-backend-master/xiapi-backend.iml" filepath="$PROJECT_DIR$/xiapi-backend-master/xiapi-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiapi-client-sdk-master/xiapi-client-sdk.iml" filepath="$PROJECT_DIR$/xiapi-client-sdk-master/xiapi-client-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiapi-common-master/xiapi-common.iml" filepath="$PROJECT_DIR$/xiapi-common-master/xiapi-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiapi-gateway-master/xiapi-gateway.iml" filepath="$PROJECT_DIR$/xiapi-gateway-master/xiapi-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiapi-interface-master/xiapi-interface.iml" filepath="$PROJECT_DIR$/xiapi-interface-master/xiapi-interface.iml" />
+    </modules>
+  </component>
+</project>
