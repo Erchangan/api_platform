@@ -218,7 +218,8 @@ public class InterfaceInfoOrderController {
 
         Long userId = userService.getLoginUser(request).getId();
         LambdaQueryWrapper<InterfaceInfoOrder> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(InterfaceInfoOrder::getUserId, userId);
+        queryWrapper.eq(InterfaceInfoOrder::getUserId, userId)
+                .orderByDesc(InterfaceInfoOrder::getCreateTime);
 
         Page<InterfaceInfoOrder> interfaceInfoPage = interfaceInfoOrderService.page(new Page<>(current, size), queryWrapper);
 

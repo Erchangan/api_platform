@@ -24,8 +24,9 @@
     <select id="getInvokeMoreInterfaceByTotalNum" resultType="java.lang.Long">
         SELECT interfaceInfoId
         FROM user_interface_info
-        WHERE userId = userId
-        GROUP BY totalNum DESC
+        WHERE userId = #{userId}
+        GROUP BY totalNum
+        ORDER BY totalNum DESC
         LIMIT 1
     </select>
 

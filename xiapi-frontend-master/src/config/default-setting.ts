@@ -1,9 +1,9 @@
 import type { LayoutSetting } from '~@/stores/app'
 
 export default {
-  title: 'XI API',
+  title: '迅联API',
   theme: 'light',
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: '/public/favicon.ico',
   collapsed: false,
   drawerVisible: false,
   colorPrimary: '#1677FF',

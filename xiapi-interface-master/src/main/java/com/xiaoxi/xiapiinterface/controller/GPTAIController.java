@@ -20,7 +20,7 @@ public class GPTAIController {
     @Resource
     private YuCongMingClient client;
 
-    @PostMapping("dochat")
+    @PostMapping("/dochat")
     public String doChatByGPT(@RequestBody GPTAIRequest request){
         if (request == null){
             return "请求参数为空";
