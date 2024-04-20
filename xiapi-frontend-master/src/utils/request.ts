@@ -4,7 +4,7 @@ import router from "~/router";
 
 const instance = axios.create({
   baseURL: 'http://127.0.0.1:8101/api/',
-  timeout: 10000,
+  timeout: 50000,
 });
 
 instance.defaults.withCredentials = true; // 配置为true
