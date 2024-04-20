@@ -134,7 +134,7 @@ const payOrder = async () => {
 
 // 退款
 const handleRefund = (record) => {
-  message.info("上了贼船不许退款")
+  message.info("暂不支持退款")
 }
 
 // 格式化时间

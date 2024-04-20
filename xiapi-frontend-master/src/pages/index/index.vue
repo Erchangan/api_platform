@@ -64,7 +64,7 @@ const showModal = (id) => {
               <template #cover>
                 <img
                     alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    src="/public/block-chain-6999644_1280.webp"
                 />
               </template>
               <template #actions>
