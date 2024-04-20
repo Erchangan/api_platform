@@ -102,14 +102,14 @@ const submit = async () => {
         <div class="ant-pro-form-login-top">
           <div class="ant-pro-form-login-header">
             <span class="ant-pro-form-login-logo">
-              <img src="/logo.svg">
+              <img src="/favicon.ico">
             </span>
             <span class="ant-pro-form-login-title">
-              Xi API
+              迅联API
             </span>
           </div>
           <div class="ant-pro-form-login-desc">
-            Xi API 让你轻松的调用第三方接口
+            迅联 API 让你轻松的调用第三方接口
           </div>
         </div>
         <div class="ant-pro-form-login-main" w-335px>

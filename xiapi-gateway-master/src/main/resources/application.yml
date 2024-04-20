@@ -20,12 +20,19 @@ logging:
 
 dubbo:
   application:
-    name: api-consumer
+    name: api_consumer
+    qos-enable: true
+    qos-accept-foreign-ip: false
+    qos-port: 22202
   protocol:
     name: dubbo
     port: -1
   registry:
+    id: gateway
+    #    address: nacos://8.140.60.185:8848
     address: nacos://127.0.0.1:8848
+  config-center:
+    timeout: 40000
 
 
 

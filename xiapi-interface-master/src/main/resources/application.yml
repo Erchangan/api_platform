@@ -12,8 +12,8 @@ xiapi:
 # ai服务ak与sk
 yuapi:
   client:
-    access-key: xxx
-    secret-key: xxx
+    access-key: 9j6y4honn642wygrxgljs55boy6pbjth
+    secret-key: bfm1tq4gizqyftzchcog860bxs0ezt7l
 
 # 星火大模型api调用密钥
 spark:

@@ -44,7 +44,7 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
     <template #renderFooterLinks>
       <!-- TODO -->
     </template>
-    <a-watermark h-full flex flex-col flex-1 content="Xi API">
+    <a-watermark h-full flex flex-col flex-1>
       <RouterView>
         <template #default="{ Component }">
           <component :is="Component" />
