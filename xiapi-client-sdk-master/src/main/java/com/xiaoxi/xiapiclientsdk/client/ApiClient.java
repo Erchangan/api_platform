@@ -90,6 +90,15 @@ public class ApiClient {
         return getResponse(httpResponse);
     }
 
+    public ApiResponse getRandomImage() {
+        HttpResponse httpResponse = HttpRequest
+                .post(GATEWAY_HOST + "/api/random/randomImages")
+                .addHeaders(getHeaderMap("{}"))
+                .execute();
+        return getResponse(httpResponse);
+    }
+
+
     private static ApiResponse getResponse(HttpResponse httpResponse) {
         ApiResponse response = new ApiResponse();
         int responseStatus = httpResponse.getStatus();

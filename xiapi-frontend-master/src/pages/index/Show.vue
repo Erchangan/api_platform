@@ -82,6 +82,7 @@ const addParam = () => {
 };
 
 const invokeResult = ref('请调用接口')
+const imageUrl = ref("")
 
 interface InvokeParam {
   id: number,
@@ -96,7 +97,7 @@ const invokeParam = ref<InvokeParam>({
 const invokeInterfaceInfo = async (param: InvokeParam) => {
   const res = await request.post('interfaceInfo/invoke', param);
   if (res.code === 0) {
-    invokeResult.value = res.data
+    invokeResult.value = res.data.data
     loading.value = false
     message.success("调用成功!")
   } else {
@@ -165,7 +166,7 @@ const getByInterfaceId = async () => {
 }
 
 // 购买
-const addOrderData = ref<{interfaceInfoProductId: number, interfaceInfoId: number}>({
+const addOrderData = ref<{ interfaceInfoProductId: number, interfaceInfoId: number }>({
   interfaceInfoProductId: 0,
   interfaceInfoId: 0
 })
@@ -176,9 +177,9 @@ const handleBuy = (record) => {
 }
 const addInterfaceInfoProduct = async () => {
   const res = await request.post('interfaceInfoOrder/add', addOrderData.value)
-  if (res.code === 0){
+  if (res.code === 0) {
     orderId.value = res.data
-  }else {
+  } else {
     message.error(res.message)
   }
 }
@@ -214,11 +215,11 @@ const payOrder = async () => {
   payOrderData.value.interfaceInfoProductId = addOrderData.value.interfaceInfoProductId
 
   const res = await request.post('interfaceInfoOrder/pay', payOrderData.value);
-  if (res.code === 0){
+  if (res.code === 0) {
     message.success("支付成功")
     open.value = false
     reload()
-  }else {
+  } else {
     message.error(res.message)
   }
 }
@@ -227,6 +228,10 @@ const payOrder = async () => {
 const formatDate = (time) => {
   return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
 }
+
+const hasValue = (value) => {
+  return !(value === null || value === "" || value === "undefined" || value === undefined || value === "null");
+};
 </script>
 
 <template>
@@ -338,12 +343,12 @@ const formatDate = (time) => {
         </a-tab-pane>
       </a-tabs>
     </div>
-<!--    支付对话框-->
+    <!--    支付对话框-->
     <a-modal v-model:open="open" title="选择支付方式">
       <template #footer>
       </template>
-        <a-button style="color: blue" block @click="payOrder">支付宝</a-button>
-        <a-button style="color: green" block @click="payOrder">微信支付</a-button>
+      <a-button style="color: blue" block @click="payOrder">支付宝</a-button>
+      <a-button style="color: green" block @click="payOrder">微信支付</a-button>
     </a-modal>
   </div>
 </template>
