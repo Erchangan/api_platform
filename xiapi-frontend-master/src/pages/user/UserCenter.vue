@@ -41,17 +41,17 @@ const handleChange = (info: UploadChangeParam) => {
   }
 };
 
-const beforeUpload = (file: UploadProps['fileList'][number]) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('只可以上传JPG文件!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 1;
-  if (!isLt2M) {
-    message.error('文件大小不能超过1MB!');
-  }
-  return isJpgOrPng && isLt2M;
-};
+  const beforeUpload = (file: UploadProps['fileList'][number]) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('只可以上传JPG文件!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      message.error('文件大小不能超过10MB!');
+    }
+    return isJpgOrPng && isLt2M;
+  };
 // 输入框
 interface User {
   userAvatar: string,

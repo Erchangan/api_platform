@@ -40,6 +40,9 @@ const option_column = computed(() => {
         data: nameData.value,
         axisTick: {
           alignWithLabel: true
+        },
+        axisLabel: {
+          rotate: 15
         }
       }
     ],

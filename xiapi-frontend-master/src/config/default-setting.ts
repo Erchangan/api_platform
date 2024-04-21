@@ -21,5 +21,5 @@ export default {
   multiTab: true,
   multiTabFixed: false,
   headerHeight: 48,
-  copyright: 'xiaoxi2023',
+  copyright: '迅联2024',
 } as LayoutSetting
