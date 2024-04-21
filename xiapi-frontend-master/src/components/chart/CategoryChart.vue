@@ -19,7 +19,7 @@ const getInterfaceInvokeCountFor7 = async () => {
 const option_column = computed(() => {
   return {
     title: {
-      text: '用户近七次接口调用总数',
+      text: '用户近七日接口调用总数',
       left: 'center'
     },
     tooltip: {
