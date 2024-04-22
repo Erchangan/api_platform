@@ -52,7 +52,7 @@ const showModal = (id) => {
 
 <template>
   <div>
-    <a-card title="接口市场">
+    <a-card title="接口市场" class="interface-market-card" >
       <a-list
           :grid="{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 3, xl: 4, xxl: 3 }"
           item-layout="horizontal"
@@ -112,5 +112,11 @@ const showModal = (id) => {
   .ant-modal-body {
     flex: 1;
   }
+}
+
+.interface-market-card {
+  background-image: url('/public/background.jpg'); /* 替换为你的背景图片路径 */
+  background-size: cover;
+  /* 可以添加其他背景图片的样式，例如背景大小、重复等 */
 }
 </style>
