@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { AlipayCircleFilled, LockOutlined, MobileOutlined, TaobaoCircleFilled, UserOutlined, WeiboCircleFilled } from '@ant-design/icons-vue'
+import {
+  AlipayCircleFilled,
+  LockOutlined,
+  MobileOutlined,
+  TaobaoCircleFilled,
+  UserOutlined,
+  WeiboCircleFilled
+} from '@ant-design/icons-vue'
 import GlobalLayoutFooter from '~/layouts/components/global-footer/index.vue'
 import {message} from "ant-design-vue";
 import request from "~/utils/request.ts";
@@ -7,7 +14,7 @@ import {ref} from "vue";
 import {useUserInfo} from "~/stores/userstore.ts";
 // import { loginApi } from '~/api/common/login'
 const appStore = useAppStore()
-const { layoutSetting } = storeToRefs(appStore)
+const {layoutSetting} = storeToRefs(appStore)
 const router = useRouter()
 
 const useuserinfo = useUserInfo()
@@ -17,11 +24,14 @@ const userLoginModel = reactive({
   userPassword: undefined,
 })
 
-const loginModel = reactive({
-  mobile: undefined,
-  code: undefined,
-  type: 'account',
-  remember: true,
+const userRegisterModel = reactive({
+  userAccount: "",
+  userPassword: "",
+  checkPassword: ""
+})
+
+const registerModel = reactive({
+  type: 'account'
 })
 
 const userInfo = ref({
@@ -38,7 +48,7 @@ const antdToken = useAntdToken()
 const resetCounter = 60
 const submitLoading = shallowRef(false)
 
-const { counter, pause, reset, resume, isActive } = useInterval(1000, {
+const {counter, pause, reset, resume, isActive} = useInterval(1000, {
   controls: true,
   immediate: false,
   callback(count) {
@@ -57,8 +67,7 @@ const getCode = async () => {
       resume()
       codeLoading.value = false
     }, 3000)
-  }
-  catch (error) {
+  } catch (error) {
     // TODO
     codeLoading.value = false
   }
@@ -66,7 +75,7 @@ const getCode = async () => {
 
 const submit = async () => {
   const res = await request.post('/user/login', userLoginModel)
-  if (res.code === 0 && res.data){
+  if (res.code === 0 && res.data) {
     userInfo.value.id = res.data.id
     userInfo.value.userName = res.data.userName
     userInfo.value.userAvatar = res.data.userAvatar
@@ -76,24 +85,39 @@ const submit = async () => {
     Object.assign(useuserinfo, userInfo.value)
     // 跳转到主页
     // router.replace('/')
-    window.location.href="/"
+    window.location.href = "/"
     message.success('登录成功');
-  }else {
+  } else {
     message.error(res.message);
   }
 }
+
+const register = async () => {
+  const res = await request.post('/user/register', userRegisterModel)
+  if (res.code === 0 && res.data) {
+    message.success('注册成功');
+    registerModel.type = 'account'
+    userLoginModel.userAccount = userRegisterModel.userAccount
+    userLoginModel.userPassword = userRegisterModel.userPassword
+  } else {
+    message.error(res.message);
+  }
+}
+
+
 </script>
 
 <template>
   <div class="login-container">
     <div class="login-lang" flex="~" items-center justify-end gap-2 px-24px>
-      <span flex items-center justify-center cursor-pointer text-16px @click="appStore.toggleTheme(layoutSetting.theme === 'dark' ? 'light' : 'dark')">
+      <span flex items-center justify-center cursor-pointer text-16px
+            @click="appStore.toggleTheme(layoutSetting.theme === 'dark' ? 'light' : 'dark')">
         <!-- 亮色和暗黑模式切换按钮 -->
         <template v-if="layoutSetting.theme === 'light'">
-          <carbon-moon />
+          <carbon-moon/>
         </template>
         <template v-else>
-          <carbon-sun />
+          <carbon-sun/>
         </template>
       </span>
     </div>
@@ -113,71 +137,72 @@ const submit = async () => {
           </div>
         </div>
         <div class="ant-pro-form-login-main" w-335px>
-          <a-form ref="formRef" :model="loginModel">
-            <a-tabs v-model:activeKey="loginModel.type" centered>
-              <a-tab-pane key="account" tab="账户密码登录" />
-              <a-tab-pane key="mobile" tab="手机号登录" />
+          <a-form ref="formRef" :model="userRegisterModel">
+            <a-tabs v-model:activeKey="registerModel.type" centered>
+              <a-tab-pane key="account" tab="用户登录"/>
+              <a-tab-pane key="register" tab="用户注册"/>
             </a-tabs>
-            <template v-if="loginModel.type === 'account'">
+            <template v-if="registerModel.type === 'account'">
               <a-form-item name="username">
-                <a-input v-model:value="userLoginModel.userAccount" allow-clear placeholder="请输入账号" size="large" @pressEnter="submit">
+                <a-input v-model:value="userLoginModel.userAccount" allow-clear placeholder="请输入账号" size="large"
+                         @pressEnter="submit">
                   <template #prefix>
-                    <UserOutlined />
+                    <UserOutlined/>
                   </template>
                 </a-input>
               </a-form-item>
               <a-form-item name="password">
-                <a-input-password v-model:value="userLoginModel.userPassword" allow-clear placeholder="请输入密码" size="large" @pressEnter="submit">
+                <a-input-password v-model:value="userLoginModel.userPassword" allow-clear placeholder="请输入密码"
+                                  size="large" @pressEnter="submit">
                   <template #prefix>
-                    <LockOutlined />
+                    <LockOutlined/>
                   </template>
                 </a-input-password>
               </a-form-item>
+              <a-button type="primary" block :loading="submitLoading" size="large" @click="submit">
+                登录
+              </a-button>
             </template>
-            <template v-if="loginModel.type === 'mobile'">
-              <a-form-item name="mobile" :rules="[{ required: true, message: '手机号不能为空' }]">
-                <a-input v-model:value="loginModel.mobile" allow-clear placeholder="请输入手机号！" size="large" @pressEnter="submit">
+            <template v-if="registerModel.type === 'register'">
+              <a-form-item name="userAccount" :rules="[{ required: true, message: '账号不能为空' }]">
+                <a-input v-model:value="userRegisterModel.userAccount" allow-clear placeholder="请输入用户名！"
+                         size="large">
                   <template #prefix>
-                    <MobileOutlined />
+                    <UserOutlined/>
                   </template>
                 </a-input>
               </a-form-item>
-              <a-form-item name="code" :rules="[{ required: true, message: '验证码不能为空' }]">
+              <a-form-item name="userPassword" :rules="[{ required: true, message: '密码不能为空' }]">
                 <div flex items-center>
-                  <a-input
-                    v-model:value="loginModel.code" style="flex: 1 1 0%; transition: width 0.3s ease 0s; margin-right: 8px;"
-                    allow-clear placeholder="请输入验证码！" size="large" @pressEnter="submit"
+                  <a-input-password
+                      v-model:value="userRegisterModel.userPassword"
+                      style="flex: 1 1 0%; transition: width 0.3s ease 0s; margin-right: 8px;"
+                      allow-clear placeholder="请输入密码！" size="large"
                   >
                     <template #prefix>
-                      <LockOutlined />
+                      <LockOutlined/>
                     </template>
-                  </a-input>
-                  <a-button :loading="codeLoading" :disabled="isActive" size="large" @click="getCode">
-                    <template v-if="!isActive">
-                      获取验证码
-                    </template>
-                    <template v-else>
-                      {{ resetCounter - counter }} 秒后重新获取
-                    </template>
-                  </a-button>
+                  </a-input-password>
                 </div>
               </a-form-item>
+              <a-form-item name="checkPassword" :rules="[{ required: true, message: '密码不能为空' }]">
+                <a-input-password v-model:value="userRegisterModel.checkPassword" allow-clear placeholder="请确认密码！"
+                         size="large">
+                  <template #prefix>
+                    <LockOutlined/>
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <a-button type="primary" block :loading="submitLoading" size="large" @click="register">
+                注册
+              </a-button>
             </template>
-            <div class="mb-24px" flex items-center justify-between>
-              <a-checkbox v-model:checked="loginModel.remember">
-                自动登录
-              </a-checkbox>
-              <a>忘记密码 ?</a>
-            </div>
-            <a-button type="primary" block :loading="submitLoading" size="large" @click="submit">
-              登录
-            </a-button>
           </a-form>
           <div class="ant-pro-form-login-other" text-14px>
             其他登录方式:
-            <AlipayCircleFilled class="icon" />
-            <TaobaoCircleFilled class="icon" />
-            <WeiboCircleFilled class="icon" />
+            <AlipayCircleFilled class="icon"/>
+            <TaobaoCircleFilled class="icon"/>
+            <WeiboCircleFilled class="icon"/>
           </div>
         </div>
       </div>
@@ -185,7 +210,7 @@ const submit = async () => {
     <div py-24px px-50px :data-theme="layoutSetting.theme" text-14px>
       <GlobalLayoutFooter :copyright="layoutSetting.copyright">
         <template #renderFooterLinks>
-          <footer-links />
+          <footer-links/>
         </template>
       </GlobalLayoutFooter>
     </div>
@@ -193,7 +218,7 @@ const submit = async () => {
 </template>
 
 <style lang="less" scoped>
-.login-container{
+.login-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -207,11 +232,12 @@ const submit = async () => {
   line-height: 44px;
 }
 
-.login-content{
+.login-content {
   flex: 1 1;
   padding: 32px 0
 }
-.ant-pro-form-login-cotainer{
+
+.ant-pro-form-login-cotainer {
   display: flex;
   flex: 1 1;
   flex-direction: column;
@@ -274,13 +300,14 @@ const submit = async () => {
     margin: 0 auto;
     font-size: 16px;
   }
+
   .ant-pro-form-login-other {
     margin-top: 24px;
     line-height: 22px;
     text-align: left
   }
 
-  .icon{
+  .icon {
     margin-left: 8px;
     color: var(--text-color-2);
     font-size: 24px;
@@ -288,26 +315,26 @@ const submit = async () => {
     cursor: pointer;
     transition: color .3s;
 
-    &:hover{
+    &:hover {
       color: v-bind('antdToken.colorPrimary');
     }
   }
 }
 
-@media(min-width: 768px){
-  .login-container{
-    background-image:url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
+@media (min-width: 768px) {
+  .login-container {
+    background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
     background-repeat: no-repeat;
     background-position: center 110px;
     background-size: 100%;
   }
 
-  .login-content{
+  .login-content {
     padding: 32px 0 24px;
   }
 
-  .ant-pro-form-login-cotainer{
-    padding:32px 0 24px;
+  .ant-pro-form-login-cotainer {
+    padding: 32px 0 24px;
     background-repeat: no-repeat;
     background-position: center 110px;
     background-size: 100%
