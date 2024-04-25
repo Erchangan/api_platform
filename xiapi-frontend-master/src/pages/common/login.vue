@@ -99,6 +99,9 @@ const register = async () => {
     registerModel.type = 'account'
     userLoginModel.userAccount = userRegisterModel.userAccount
     userLoginModel.userPassword = userRegisterModel.userPassword
+    userRegisterModel.userAccount = ""
+    userRegisterModel.userPassword = ""
+    userRegisterModel.checkPassword = ""
   } else {
     message.error(res.message);
   }
@@ -187,7 +190,7 @@ const register = async () => {
               </a-form-item>
               <a-form-item name="checkPassword" :rules="[{ required: true, message: '密码不能为空' }]">
                 <a-input-password v-model:value="userRegisterModel.checkPassword" allow-clear placeholder="请确认密码！"
-                         size="large">
+                                  size="large">
                   <template #prefix>
                     <LockOutlined/>
                   </template>
