@@ -132,7 +132,7 @@ const updateMyUser = async () => {
         </a-upload>
       </div>
       <div>
-        <a-form :model="userForm">
+        <a-form v-model="userForm">
           <a-form-item label="用户名">
             <a-input v-model:value="userForm.userName" />
           </a-form-item>
