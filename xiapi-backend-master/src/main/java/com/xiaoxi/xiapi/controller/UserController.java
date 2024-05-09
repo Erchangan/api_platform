@@ -1,5 +1,10 @@
 package com.xiaoxi.xiapi.controller;
 
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.alibaba.excel.util.ListUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoxi.common.common.BaseResponse;
 import com.xiaoxi.common.common.DeleteRequest;
@@ -10,6 +15,7 @@ import com.xiaoxi.common.exception.BusinessException;
 import com.xiaoxi.common.exception.ThrowUtils;
 import com.xiaoxi.common.model.vo.DevKeyVO;
 import com.xiaoxi.xiapi.annotation.AuthCheck;
+import com.xiaoxi.xiapi.config.WebSocket;
 import com.xiaoxi.xiapi.model.dto.user.UserAddRequest;
 import com.xiaoxi.xiapi.model.dto.user.UserLoginRequest;
 import com.xiaoxi.xiapi.model.dto.user.UserQueryRequest;
@@ -325,5 +331,13 @@ public class UserController {
         DevKeyVO devKeyVO = userService.updateDevKey(loginUser);
 
         return ResultUtils.success(devKeyVO);
+    }
+
+    @GetMapping("/getAllLoginUser")
+    public BaseResponse<List<User>> getAllLoginUser(){
+        if(WebSocket.userList==null && WebSocket.userList.size()<0){
+            return  ResultUtils.error(ErrorCode.OPERATION_ERROR,"暂无登录用户");
+        }
+        return ResultUtils.success(WebSocket.userList);
     }
 }
