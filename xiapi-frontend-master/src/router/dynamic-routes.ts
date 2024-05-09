@@ -76,6 +76,14 @@ export default [
                 },
             },
             {
+                path: '/chatroom',
+                name: 'chatroom',
+                component: () => import('~/pages/user/ChatRoom.vue'),
+                meta: {
+                    title: '客服中心',
+                },
+            },
+            {
                 path: '/devplatform',
                 name: 'devplatform',
                 component: () => import('~/pages/user/DevPlatform.vue'),

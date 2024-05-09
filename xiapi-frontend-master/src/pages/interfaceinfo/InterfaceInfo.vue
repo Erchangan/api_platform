@@ -66,11 +66,6 @@ const columns = [
     dataIndex: 'userId',
   },
   {
-    title: '请求方法',
-    key: 'method',
-    dataIndex: 'method',
-  },
-  {
     title: '操作',
     key: 'action',
     width: 150
