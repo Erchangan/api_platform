@@ -71,7 +71,6 @@ const sendMessage = () => {
 const getAllLoginUser = async () => {
   const res = await request.get('user/getAllLoginUser')
   if (res.code == 0) {
-    debugger
     let filterList = res.data.filter(item=>item.userRole != 'admin');
     let resWithSelected = filterList.map(item => ({...item, selected: false}));
     allLoginUser.value = resWithSelected
