@@ -21,7 +21,6 @@ const listInterfaceInfoByPage = async () => {
     params: pageInfo.value
   })
   if (res.code === 0) {
-    debugger
     data.value = res.data.records
     total.value = Number(res.data.total)
   } else {
