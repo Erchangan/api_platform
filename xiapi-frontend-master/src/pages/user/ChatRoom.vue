@@ -22,13 +22,19 @@ const message = ref<string>("")
 const allLoginUser = ref([])
 const toUser = ref<string>("xiaoxi")
 const currentLoginUserRole = ref<string>()
+
+onMounted(() => {
+  getAllLoginUser()
+  let loginUser = JSON.parse(localStorage.getItem("userInfo"));
+  currentLoginUserRole.value = loginUser.userRole
+})
+
 const webSocket = new WebSocket(`ws://127.0.0.1:8101/api/websocket`)
 webSocket.onopen = () => {
   console.log('WebSocket connected')
 }
 
 webSocket.onmessage = (event) => {
-  debugger
   let msg = event.data
   const msgObject: ChatMessage = {
     message: undefined,
@@ -40,12 +46,15 @@ webSocket.onmessage = (event) => {
 }
 
 const getMessage = (item) => {
+  allLoginUser.value.forEach(item => {
+    item.selected = false
+  })
+  item.selected = !item.selected
   toUser.value = item.userAccount
   console.log(toUser.value)
 }
 
 const sendMessage = () => {
-  debugger
   const msgObject: ChatMessage = {
     message: undefined,
     reply: undefined
@@ -62,16 +71,10 @@ const sendMessage = () => {
 const getAllLoginUser = async () => {
   const res = await request.get('user/getAllLoginUser')
   if (res.code == 0) {
-    allLoginUser.value = res.data
+    let resWithSelected = res.data.map(item => ({...item, selected: false}));
+    allLoginUser.value = resWithSelected
   }
 }
-
-onMounted(() => {
-  getAllLoginUser()
-  debugger
-  let loginUser = JSON.parse(localStorage.getItem("userInfo"));
-  currentLoginUserRole.value = loginUser.userRole
-})
 
 </script>
 
@@ -92,7 +95,8 @@ onMounted(() => {
             <a-layout-sider :style="{height:'450px',background:'white' }" v-if="currentLoginUserRole == 'admin'">
               <a-list item-layout="horizontal" :data-source="allLoginUser">
                 <template #renderItem="{ item }">
-                  <a-list-item @click="getMessage(item)">
+                  <a-list-item @click="getMessage(item)"
+                               :style="{backgroundColor: item.selected ? '#b7d8f5' : 'white'}">
                     <a-list-item-meta>
                       <template #title>
                         {{ item.userAccount }}
@@ -149,8 +153,8 @@ onMounted(() => {
 }
 
 .right {
-  background-color: #5cdbd3; /* 自己发送的消息背景色 */
-  color: #fff; /* 文字颜色 */
+  background-color: #f0f0f0; /* 自己发送的消息背景色 */
+  color: #000; /* 文字颜色 */
   border-radius: 15px 15px 0 15px; /* 圆角 */
   padding: 10px 15px; /* 内边距 */
 }
