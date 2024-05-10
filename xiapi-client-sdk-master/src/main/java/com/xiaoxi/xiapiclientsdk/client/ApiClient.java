@@ -98,6 +98,28 @@ public class ApiClient {
         return getResponse(httpResponse);
     }
 
+    public ApiResponse getCityWeather(String city, String type){
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("city", city);
+        paramMap.put("type", type);
+        String json = JSONUtil.toJsonStr(paramMap);
+        HttpResponse httpResponse = HttpRequest.get(GATEWAY_HOST +"/api/weather/getWeather")
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute();
+        return getResponse(httpResponse);
+    }
+
+    public ApiResponse getPhoneAddress(String phone){
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("phone", phone);
+        String json = JSONUtil.toJsonStr(paramMap);
+        HttpResponse httpResponse = HttpRequest.get(GATEWAY_HOST +"/api/phone/getAddress")
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute();
+        return getResponse(httpResponse);
+    }
 
     private static ApiResponse getResponse(HttpResponse httpResponse) {
         ApiResponse response = new ApiResponse();

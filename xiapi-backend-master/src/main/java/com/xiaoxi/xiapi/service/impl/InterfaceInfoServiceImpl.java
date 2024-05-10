@@ -7,9 +7,7 @@ import com.xiaoxi.common.model.entity.InterfaceInfo;
 import com.xiaoxi.xiapi.mapper.InterfaceInfoMapper;
 import com.xiaoxi.xiapi.service.InterfaceInfoService;
 import com.xiaoxi.xiapi.service.invokeservice.InvokeService;
-import com.xiaoxi.xiapi.service.invokeservice.impl.InvokeGPTAIService;
-import com.xiaoxi.xiapi.service.invokeservice.impl.InvokeImageService;
-import com.xiaoxi.xiapi.service.invokeservice.impl.InvokeNameService;
+import com.xiaoxi.xiapi.service.invokeservice.impl.*;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -91,8 +89,9 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
     static {
         serviceMap.put(InterfaceInfoIdEnum.GetUserName.getValue(), new InvokeNameService());
         serviceMap.put(InterfaceInfoIdEnum.DoChatByGPT.getValue(), new InvokeGPTAIService());
-//        serviceMap.put(InterfaceInfoIdEnum.DoChatBySpark.getValue(), new InvokeSparkAIService());
         serviceMap.put(InterfaceInfoIdEnum.GetRandomImage.getValue(), new InvokeImageService());
+        serviceMap.put(InterfaceInfoIdEnum.GetCityWeather.value,new InvokeWeatherService() );
+        serviceMap.put(InterfaceInfoIdEnum.GetPhoneAddress.getValue(),new InvokePhoneService() );
     }
 
     // 使用工厂+策略模式根据不同的接口id调用不同的接口
@@ -106,7 +105,9 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         GetUserName("GetUserName", "1"),
         DoChatByGPT("DoChatByGPT", "2"),
 //        DoChatBySpark("DoChatBySpark", "3"),
-        GetRandomImage("GetRandomImage", "3");
+        GetRandomImage("GetRandomImage", "3"),
+        GetCityWeather("GetCityWeather", "4"),
+        GetPhoneAddress("GetPhoneAddress", "5");
 
         private final String text;
 

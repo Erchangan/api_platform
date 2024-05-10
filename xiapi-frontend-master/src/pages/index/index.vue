@@ -10,7 +10,7 @@ import Show from "~/pages/index/Show.vue";
 const current = ref(1);
 const pageInfo = ref<Page>({
   current: 1,
-  pageSize: 8
+  pageSize: 4
 })
 
 const data = ref<InterfaceInfo[]>([])
@@ -21,6 +21,7 @@ const listInterfaceInfoByPage = async () => {
     params: pageInfo.value
   })
   if (res.code === 0) {
+    debugger
     data.value = res.data.records
     total.value = Number(res.data.total)
   } else {
@@ -79,7 +80,7 @@ const showModal = (id) => {
           </a-list-item>
         </template>
       </a-list>
-      <a-pagination v-model:current="current" :total="total" show-less-items/>
+      <a-pagination v-model:current="current" :total="total " :page-size="pageInfo.pageSize" show-less-items/>
     </a-card>
     <a-modal
         v-model:open="open"
@@ -115,8 +116,7 @@ const showModal = (id) => {
 }
 
 .interface-market-card {
-  background-image: url('/public/background.jpg'); /* 替换为你的背景图片路径 */
+  background-image: url('/public/background.jpg');
   background-size: cover;
-  /* 可以添加其他背景图片的样式，例如背景大小、重复等 */
 }
 </style>
