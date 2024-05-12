@@ -121,6 +121,28 @@ public class ApiClient {
         return getResponse(httpResponse);
     }
 
+    public ApiResponse getIpAddress(String ip){
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("ip", ip);
+        String json = JSONUtil.toJsonStr(paramMap);
+        HttpResponse httpResponse = HttpRequest.get(GATEWAY_HOST +"/api/ip/getAddress")
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute();
+        return getResponse(httpResponse);
+    }
+
+    public ApiResponse getCarAddress(String word){
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("word", word);
+        String json = JSONUtil.toJsonStr(paramMap);
+        HttpResponse httpResponse = HttpRequest.get(GATEWAY_HOST +"/api/car/getAddress")
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute();
+        return getResponse(httpResponse);
+    }
+
     private static ApiResponse getResponse(HttpResponse httpResponse) {
         ApiResponse response = new ApiResponse();
         int responseStatus = httpResponse.getStatus();

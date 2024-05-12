@@ -92,6 +92,8 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         serviceMap.put(InterfaceInfoIdEnum.GetRandomImage.getValue(), new InvokeImageService());
         serviceMap.put(InterfaceInfoIdEnum.GetCityWeather.value,new InvokeWeatherService() );
         serviceMap.put(InterfaceInfoIdEnum.GetPhoneAddress.getValue(),new InvokePhoneService() );
+        serviceMap.put(InterfaceInfoIdEnum.GetIpAddress.getValue(),new InvokeIpAddressService() );
+        serviceMap.put(InterfaceInfoIdEnum.GetCarAddress.getValue(),new InvokeCarAddressService() );
     }
 
     // 使用工厂+策略模式根据不同的接口id调用不同的接口
@@ -107,7 +109,9 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 //        DoChatBySpark("DoChatBySpark", "3"),
         GetRandomImage("GetRandomImage", "3"),
         GetCityWeather("GetCityWeather", "4"),
-        GetPhoneAddress("GetPhoneAddress", "5");
+        GetPhoneAddress("GetPhoneAddress", "5"),
+        GetIpAddress("GetIpAddress", "6"),
+        GetCarAddress("GetCarAddress", "7");
 
         private final String text;
 
